@@ -1,0 +1,16 @@
+{
+  "name": "launcher-z",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "npx tsc index.ts --outDir dist/ && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "juansgdev",
+  "license": "ISC",
+  "description": "A linux app launcher for minimal environments.",
+  "devDependencies": {
+    "@types/node": "^22.14.1"
+  }
+}

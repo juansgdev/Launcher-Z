@@ -1,0 +1,6 @@
+/node_modules
+/dist/index.js
+/gui/.angular
+/gui/.vscode
+/gui/dist
+/gui/node_modules
