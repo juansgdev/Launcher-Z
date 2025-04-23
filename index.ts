@@ -6,7 +6,7 @@ import { getValueFromField } from './src/utils';
 const PATH = '/usr/share/applications/';
 
 http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.writeHead(200, {'Content-Type': 'text/json'});
     console.log(req.url);
     
     spawn('feh', ['--bg-scale', `/home/juan/wallpapers/${req.url?.replace('/', '')}.png`]);
@@ -32,21 +32,11 @@ http.createServer((req, res) => {
         
     }
 
-    // 
-    if (req.url === '/apps/search' && req.method === 'PATCH') {
-        let list:string = '';
-
-        fs.readdir('/usr/share/applications/', (err, files) => {
-            fs.readFile('app-list.json', (err, data) => {
-                const dataObject:object = JSON.parse(''+data);
-                for (const key in dataObject) {
-                    console.log(key);
-                    
-                }
-            });
-            
-        });
-        
+    // Retorna apps já registrados
+    if (req.url === '/apps' && req.method === 'GET') {
+        res.write(
+            fs.readFileSync('app-list.json')
+        );
     }
 
     res.end();
