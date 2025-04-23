@@ -1,5 +1,5 @@
 /node_modules
-/dist/index.js
+/dist
 /gui/.angular
 /gui/.vscode
 /gui/dist

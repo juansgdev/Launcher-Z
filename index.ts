@@ -13,40 +13,22 @@ http.createServer((req, res) => {
 
     // Busca todos os apps e seus icons
     if (req.url === '/apps/search' /**&& req.method === 'PATCH'**/) {
-        fs.readdir('/usr/share/applications/', (err, files) => {
-            let list:{apps: [{name:string,exec:string,icon:string}]} = {
-                apps: [
-                    {
-                        name: '',
-                        exec: '',
-                        icon: ''
-                    }
-                ]
-            };
+        const list:{apps: {name:string,exec:string,icon:string}[]} = {apps: []};
 
-            files.forEach(file => {
-                fs.readFile(PATH+file, (err, data) => {
-                    const text = ''+data;
+        fs.readdirSync(PATH, {'encoding':'utf-8'}).forEach(file => {
+            const archive = fs.readFileSync(PATH+file).toString();
 
-                    // indice do 
-                    const searched = text.match(/Icon/);
-                    //searched !== null ? console.log(searched.index) : false;
-                    
-                    list.apps.push({
-                        name : getValueFromField(text, 'Name='),
-                        exec : getValueFromField(text, 'Exec='),
-                        icon : getValueFromField(text, 'Icon=')
-                    });
-
-                    files[files.length-1] === file ? list.apps.forEach(e => {   
-                        console.log(e);
-                        
-                    }) : false;
-                });
-
-                
-            });
+            list.apps.push(
+                {
+                    name: getValueFromField(archive, 'Name='),
+                    exec: getValueFromField(archive, 'Exec='),
+                    icon: getValueFromField(archive, 'Icon=')
+                }
+            );
         });
+
+        // list pronta para ser registrada
+        list.apps.forEach(app=>{res.write('Name : ' + app.name+ 'Exec : ' + app.exec+ 'Icon : ' + app.icon)});
         
     }
 
