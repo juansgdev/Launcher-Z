@@ -28,7 +28,7 @@ http.createServer((req, res) => {
         });
 
         // list pronta para ser registrada
-        list.apps.forEach(app=>{res.write('Name : ' + app.name+ 'Exec : ' + app.exec+ 'Icon : ' + app.icon)});
+        fs.writeFileSync('app-list.json', JSON.stringify(list));
         
     }
 
