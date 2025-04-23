@@ -4,12 +4,33 @@ import * as fs from 'fs';
 import { getValueFromField } from './src/utils';
 
 const PATH = '/usr/share/applications/';
+const WALL_PATH = '/home/juan/wallpapers/';
 
 http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type': 'text/json'});
     console.log(req.url);
     
-    spawn('feh', ['--bg-scale', `/home/juan/wallpapers/${req.url?.replace('/', '')}.png`]);
+    // retorna os wallpapers
+    if (req.url === '/wallpapers') {
+        const list:{wallpapers: {name:string, base64:string}[]} = {wallpapers: []};
+
+        fs.readdirSync(WALL_PATH, {'encoding':'utf-8'}).forEach(file => {
+            list.wallpapers.push(
+                {
+                    name: file,
+                    base64: fs.readFileSync(WALL_PATH+file, 'base64')
+                }
+            );
+        });
+        
+        res.write(JSON.stringify(list));
+        console.log(JSON.stringify(list));
+    }
+    
+    // troca os wallpaper
+    if (req.url?.slice(0, 12) === '/wallpapers/' && req.url.length > 12) {
+        spawn('feh', ['--bg-scale', `/home/juan/wallpapers/${req.url?.replace('/wallpapers/', '')}.png`]);
+    }
 
     // Busca todos os apps e seus icons
     if (req.url === '/apps/search' /**&& req.method === 'PATCH'**/) {
