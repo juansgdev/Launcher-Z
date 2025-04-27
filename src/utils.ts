@@ -4,3 +4,22 @@ export const getValueFromField = (rawText:string, field:string):string => {
     
     return txt;
 };
+
+export const formatFileName = (fileName:string):string => {
+    let file:string = fileName.replace('.png', '');
+
+    const arr:string[] = Array.from(file);
+
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] == '-' ? arr[i] = ' ' : false;
+        arr[i] == ' ' ? arr[i+1] = arr[i+1].toUpperCase() : false;
+        i == 0 ? arr[i] = arr[i].toUpperCase() : false;
+    }
+    
+    file = '';
+    arr.forEach(char => {
+        file = file+char;
+    });
+    
+    return file;
+};

@@ -1,7 +1,7 @@
 import * as http from 'http';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
-import { getValueFromField } from './src/utils';
+import { formatFileName, getValueFromField } from './src/utils';
 
 const PATH = '/usr/share/applications/';
 const WALL_PATH = '/home/juan/wallpapers/';
@@ -12,19 +12,18 @@ http.createServer((req, res) => {
     
     // retorna os wallpapers
     if (req.url === '/wallpapers') {
-        const list:{wallpapers: {name:string, base64:string}[]} = {wallpapers: []};
+        const list:{wallpapers: {name:string, path:string}[]} = {wallpapers: []};
 
         fs.readdirSync(WALL_PATH, {'encoding':'utf-8'}).forEach(file => {
             list.wallpapers.push(
                 {
-                    name: file,
-                    base64: fs.readFileSync(WALL_PATH+file, 'base64')
+                    name: formatFileName(file),
+                    path: WALL_PATH+file
                 }
             );
         });
         
         res.write(JSON.stringify(list));
-        console.log(JSON.stringify(list));
     }
     
     // troca os wallpaper
