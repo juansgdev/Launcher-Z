@@ -28,7 +28,7 @@ http.createServer((req, res) => {
     
     // troca os wallpaper
     if (req.url?.slice(0, 12) === '/wallpapers/' && req.url.length > 12) {
-        spawn('feh', ['--bg-scale', `/home/juan/wallpapers/${req.url?.replace('/wallpapers/', '')}.png`]);
+        spawn('feh', ['--bg-scale', `${WALL_PATH}${req.url?.replace('/wallpapers/', '')}.png`]);
     }
 
     // Busca todos os apps e seus icons
