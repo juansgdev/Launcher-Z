@@ -1,0 +1,25 @@
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    width: 150px;
+    border: 2px solid rgba(0,0,0,0);
+    border-radius: 8px;
+    transition: border 100ms linear;
+}
+
+div:hover {
+    border: 2px solid var(--secondary-color);
+}
+
+img {
+    width: 134px;
+    height: 134px;
+    border-radius: 12px;
+}
+
+span {
+    font-size: 18px;
+}

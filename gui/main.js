@@ -2,12 +2,9 @@ const { app, BrowserWindow } = require('electron');
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 1366,
-        height: 55,
-        x: 0,
-        y: 768-55, // o calculo é: [height da sua tela] - 55(tamanho da taskbar)
-        titleBarStyle: 'hidden',
-        alwaysOnTop: true,
+        width: 800,
+        height: 600,
+        titleBarStyle: 'hidden'
     });
 
     win.loadFile('./dist/gui/browser/index.html');
