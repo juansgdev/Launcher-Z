@@ -4,10 +4,13 @@
     box-sizing: border-box;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    background: var(--primary-color);
 }
 
 :root {
-    --primary-color: rgb(20, 29, 42);
+    --primary-color: rgba(20, 29, 42, 0.85);
     --secondary-color: rgb(40, 49, 62);
+}
+
+html, body {
+    background: rgba(0,0,0,0);
 }

@@ -4,7 +4,9 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        titleBarStyle: 'hidden'
+        alwaysOnTop: true,
+        transparent: true,
+        frame: false
     });
 
     win.loadFile('./dist/gui/browser/index.html');
